@@ -1,0 +1,1 @@
+A way to use AIR for Android (for Android / iPad / iPhone) in combination with Google Analytics to track pages/application screens without using Javascript but by directly calling Googles tracking pixel. Included is a PHP file and an AS3 Class to make the calls.
