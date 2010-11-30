@@ -22,7 +22,7 @@ package nl.funkymonkey.android.tracking {
 	 * @usage
 	 * 		// Setup tracking
 	 * 		UrchinTracker.setApplicationName(DocumentClass.APPLICATION_NAME);
-	 * 		UrchinTracker.setDomain("http://www.justfunky.com");
+	 * 		UrchinTracker.setDomain("http://www.yourdomain.ext");
 	 * 		
 	 * 		// Do actual tracking
 	 * 		UrchinTracker.trackDevicePage(AnalyticsPageNames.SPLASH_PAGE);
