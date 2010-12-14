@@ -8,6 +8,7 @@ package nl.funkymonkey.android.tracking {
 	import flash.external.ExternalInterface;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.net.URLVariables;
 
 	/**
 	 * @author   Sidney de Koning - {sidney@funky-monkey.nl}
@@ -22,20 +23,20 @@ package nl.funkymonkey.android.tracking {
 	 * @usage
 	 * 		// Setup tracking
 	 * 		UrchinTracker.setApplicationName(DocumentClass.APPLICATION_NAME);
-	 * 		UrchinTracker.setDomain("http://www.yourdomain.ext");
+	 * 		UrchinTracker.setDomain("http://www.yourdomain.com");
 	 * 		
 	 * 		// Do actual tracking
-	 * 		UrchinTracker.trackDevicePage(AnalyticsPageNames.SPLASH_PAGE);
+	 * 		UrchinTracker.trackDevicePage(AnalyticsPageNames.HOME_PAGE);
 	 * 		
 	 * @see https://github.com/funky-monkey/Android-AIR-Device-Tracking
 	 * 
 	 */
 	public class UrchinTracker {
 
-		private static const BASE_URL : String 		= "tracking.php?";
-		private static const PAGE_PARAM : String 	= "page=";
-		private static const AMP : String 		= "&";
-		private static const APP_PARAM : String 	= "appname=";
+		private static const BASE_URL : String = "tracking.php?";
+		private static const PAGE_PARAM : String = "page=";
+		private static const AMP : String = "&";
+		private static const APP_PARAM : String = "appname=";
 		//
 		private static var _appName : String;
 		private static var _domain : String;
@@ -90,19 +91,26 @@ package nl.funkymonkey.android.tracking {
 			loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, handleHTTPStatus);
 			loader.addEventListener(IOErrorEvent.IO_ERROR, handleIOError);
 
-			var trackingURL : String = _domain + BASE_URL + PAGE_PARAM + page + AMP + APP_PARAM + _appName;
-			trace(trackingURL);
+			var request : URLRequest = new URLRequest(_domain + BASE_URL);
 
-			var request : URLRequest = new URLRequest(trackingURL);
+			var variables : URLVariables = new URLVariables();
+			variables.page = page;
+			variables.appname = _appName;
+
+			request.data = variables;
+			
+			trace("LBi - " + _domain + BASE_URL + variables);
+
 			try {
 				loader.load(request);
 			} catch (error : Error) {
-				trace("Unable to load requested document.");
+				trace("LBi - Unable to load requested document.");
 			}
 		}
 
 		private static function handleComplete(event : Event) : void {
-			// trace("handleComplete: " + loader.data);
+			var loader : URLLoader = URLLoader(event.target);
+			trace("LBi - handleComplete: " + loader.data);
 		}
 
 		private static function handleProgress(event : ProgressEvent) : void {
