@@ -1,5 +1,18 @@
 A way to use AIR for Android (for Android / iPad / iPhone) in combination with Google Analytics to track pages/application screens without using Javascript but by directly calling Googles tracking pixel. Included is a PHP file and an AS3 Class to make the calls.
 
+Place the tracking.php file on your own server and edit the following lines 
+
+$var_utmac='UA-000000-00'; //enter the new urchin code
+$var_utmhn='yourdomain.com'; //enter your domain
+
+and adjust them in such a way that it uses your tracking code and your domain name.
+
+If you are using a newly created tracking code from within GA, make sure you test/activate it first. You can do this by pasting your tracking ID in the tracking_test.html. Look for this line
+
+_gaq.push(['_setAccount', 'UA-000000-00']);
+
+Where the UA begins is your tracking ID. Paste your code here.
+
 Usage:
 // Setup tracking
 UrchinTracker.setApplicationName(DocumentClass.APPLICATION_NAME);
